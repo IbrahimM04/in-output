@@ -73,20 +73,28 @@ recognition.onend = function() {
     }
     var result = event.results[0][0].transcript;
 
-    if (locate(interim_transcript, 'refresh')) {
+    if (locate(interim_transcript, 'Refresh') || locate(interim_transcript, 'refresh')) {
       location.reload();
     }
 
-    if (locate(interim_transcript, 'Repeat')) {
+    if (locate(interim_transcript, 'Repeat') || locate(interim_transcript, 'repeat')) {
       window.speechSynthesis.speak(msg);
       console.log('repeating...');
     }
 
-    if (locate(interim_transcript, 'stop')) {
+    if (locate(interim_transcript, 'Stop') || locate(interim_transcript, 'stop')) {
       window.speechSynthesis.cancel();
       console.log('stopped!');
       recognition.stop();
     }
+
+    if (locate(interim_transcript, 'Caps') || locate(interim_transcript, 'caps')) {
+      interim_transcript.replace(interim_transcript, function(m) { return m.toUpperCase(); });
+    }
+
+    // if(locate(interim_transcript, 'Kill yourself')) {
+    //   window.close();
+    // }
 
     final_transcript = capitalize(final_transcript);
     final_span.innerHTML = linebreak(final_transcript);
