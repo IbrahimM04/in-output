@@ -223,5 +223,14 @@ recognition.onend = function() {
             setTimeout(function(){recognition.start(); final_transcript = '';}, 1000);
           }
         }
+        break;
+      case 25:
+        if(recognition.lang != 'en-US') {
+          recognition.lang = 'en-US';
+          if (recognizing) {
+            recognition.stop();
+            setTimeout(function(){recognition.start(); final_transcript = '';}, 1000);
+          }
+        }
     }
   }
