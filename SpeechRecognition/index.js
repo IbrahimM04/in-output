@@ -23,13 +23,13 @@ recognition.onstart = function() {
 };
 
 var first_char = /\S/;
-function capitalize(s) {
+function Capitalize(s) {
   return s.replace(first_char, function(m) { return m.toUpperCase(); });
 }
 
 var two_line = /\n\n/g;
 var one_line = /\n/g;
-function linebreak(s) {
+function Linebreak(s) {
   return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
 }
 
@@ -76,14 +76,20 @@ recognition.onend = function() {
     var result = event.results[0][0].transcript;
 
     for(let i = 0; i < commands.length; i++) {
-      if (locate(final_transcript, commands[i])) {
-        functions(i);
+      if (i == 0 || i == 1 || i == 4 || i == 5) {
+        if (Locate(interim_transcript, commands[i])) {
+          Run(i);
+        }
+      } else {
+        if (Locate(final_transcript, commands[i])) {
+          Run(i);
+        }
       }
     }
 
-    final_transcript = capitalize(final_transcript);
-    final_span.innerHTML = linebreak(final_transcript);
-    interim_span.innerHTML = linebreak(interim_transcript);
+    final_transcript = Capitalize(final_transcript);
+    final_span.innerHTML = Linebreak(final_transcript);
+    interim_span.innerHTML = Linebreak(interim_transcript);
 
     msg.text = final_transcript
     if (final_transcript || interim_transcript) {
@@ -92,7 +98,7 @@ recognition.onend = function() {
 
   };
 
-  function startDictating(event) {
+  function StartDictating(event) {
     if (recognizing) {
       recognition.stop();
       return;
@@ -103,134 +109,101 @@ recognition.onend = function() {
     console.log("Dictating...");
   }
 
-  function locate(a,b) {
+  function Locate(a,b) {
     return a.indexOf(b) >= 0;
   }
 
-  function functions(index) {
+  function Run(index) {
     switch (index) {
       case 0:
-        location.reload();
-        break;
+        Refresh();
+      break;
       case 1:
-        location.reload();
-        break;
+        Refresh();
+      break;
       case 2:
-        //window.speechSynthesis.speak(msg);
-        break;
+        //Repeat();
+      break;
       case 3:
-        //window.speechSynthesis.speak(msg);
-        break;
+        //Repeat();
+      break;
       case 4:
-        window.speechSynthesis.cancel();
-        console.log('stopped!');
-        recognition.stop();
-        break;
+        Stop();
+      break;
       case 5:
-        window.speechSynthesis.cancel();
-        console.log('stopped!');
-        recognition.stop();
-        break;
+        Stop();
+      break;
       case 6:
-        final_transcript.replace(final_transcript, function(m) { return m.toUpperCase(); });
-        break;
+        Caps();
+      break;
       case 7:
-        final_transcript.replace(final_transcript, function(m) { return m.toUpperCase(); });
-        break;
+        Caps();
+      break;
       case 8:
-        commands.push(final_transcript);
-        console.log('command created');
-        break;
+        //CreateCommand();
+      break;
       case 9:
-        commands.push(final_transcript);
-        console.log('command created');
-        break;
+        //CreateCommand();
+      break;
       case 10:
-        commands.push(final_transcript);
-        console.log('command created');
-        break;
+        //CreateCommand();
+      break;
       case 11:
-        commands.push(final_transcript);
-        console.log('command created');
-        break;
+        //CreateCommand();
+      break;
       case 12:
-        if (recognizing) {
-          recognition.stop();
-          setTimeout(function(){
-            recognition.start();
-            final_transcript = '';
-            result_span = '';
-          }, 1000);
-        }
-        break;
+        Restart();
+      break;
       case 13:
-        if (recognizing) {
-          recognition.stop();
-          setTimeout(function(){
-            recognition.start();
-            final_transcript = '';
-            result_span = '';
-          }, 1000);
-        }
-        break;
+        Restart();
+      break;
       case 14:
-        result_span.innerHTML = linebreak("^");
-        break;
+        Up();
+      break;
       case 15:
-        result_span.innerHTML = linebreak("^");
-        break;
+        Up();
+      break;
       case 16:
-        result_span.innerHTML = linebreak("v");
-        break;
+        Down();
+      break;
       case 17:
-        result_span.innerHTML = linebreak("v");
-        break;
+        Down();
+      break;
       case 18:
-        result_span.innerHTML = linebreak("<");
-        break;
+        Left();
+      break;
       case 19:
-        result_span.innerHTML = linebreak("<");
-        break;
+        Left();
+      break;
       case 20:
-        result_span.innerHTML = linebreak(">");
-        break;
+        Right();
+      break;
       case 21:
-        result_span.innerHTML = linebreak(">");
-        break;
+        Right();
+      break;
       case 22:
-        if (recognition.lang != 'en-US') {
-          recognition.lang = 'en-US';
-          if (recognizing) {
-            recognition.stop();
-            setTimeout(function(){recognition.start(); final_transcript = '';}, 1000);
-          }
-        }
-        break;
+        English();
+      break;
       case 23:
-        if (recognition.lang != 'nl-NL') {
-          recognition.lang = 'nl-NL';
-          if (recognizing) {
-            recognition.stop();
-            setTimeout(function(){recognition.start(); final_transcript = '';}, 1000);
-          }
-        }
-        break;
+        Dutch();
+      break;
       case 24:
-        if (recognition.lang != 'ar-EG') {
-          recognition.lang = 'ar-EG';
-          if (recognizing) {
-            recognition.stop();
-            setTimeout(function(){recognition.start(); final_transcript = '';}, 1000);
-          }
-        }
-        break;
+        Arabic();
+      break;
       case 25:
-        if(recognition.lang != 'en-US') {
-          recognition.lang = 'en-US';
-          if (recognizing) {
-            recognition.stop();
-            setTimeout(function(){recognition.start(); final_transcript = '';}, 1000);
-          }
-        }
+        ArabicToEnglish();
+      break;
+      case 26:
+        OpenNewTab();
+      break;
+      case 27:
+        OpenNewTab();
+      break;
+      case 28:
+        OpenNewTab();
+      break;
+      case 29:
+        OpenNewTab();
+      break;
     }
   }

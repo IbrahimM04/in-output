@@ -1,1 +1,0 @@
-let commands = ['Refresh', 'refresh', 'Repeat', 'repeat', 'Stop', 'stop', 'Caps', 'caps', 'Create Command', 'create command', 'create Command', 'Create command', 'Restart', 'restart', 'up' ,'Up', 'down', 'Down', 'left', 'Left', 'right', 'Right', 'English', 'Dutch', 'Arabic', 'انجلش'];
