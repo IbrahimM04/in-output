@@ -1,4 +1,5 @@
 # in-output
+Dit is mijn git repo van mijn input - output project
  # Documentatie:
  https://docs.google.com/document/d/1DgrgRieVOUkqEG3hEo_K5qgQnnQ70JJJ5DmuZ0O82tM/edit?usp=sharing (Onderzoek)
  https://docs.google.com/document/d/1irf8Ig-BnETVKUMxrTJDVzDrdAgIbMnZO_8F34pL_R0/edit?usp=sharing (Ontwerp)
